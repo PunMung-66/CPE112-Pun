@@ -20,7 +20,6 @@ int mergeArray(int* arr1, int size1, int* arr2, int size2)
     {
         arr1[i] = arr2[j];
     }
-    arr1[i] = '\0';
     return size1 + size2;
 }
 
@@ -60,6 +59,7 @@ int main()
         printf("Index out of bounds\n");
     else
     {
+        arr1 = (int*)realloc(arr1, (n + 1) * sizeof(int));
         new_n = insertArray(arr1, n, index, value);
         printArray(arr1, new_n);
         printf("\n");
@@ -72,7 +72,10 @@ int main()
         printArray(arr1, new_n);
         printf("\n"); 
     }
+    arr1 = (int*)realloc(arr1, (new_n + m) * sizeof(int));
     merge_size = mergeArray(arr1, new_n, arr2, m);
     printArray(arr1, merge_size);
+    free(arr1);
+    free(arr2);
     return 0;
 }

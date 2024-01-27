@@ -1,6 +1,5 @@
 // Punnawat Mungakalarungsi 66070503436
 #include <stdio.h>
-#include <string.h> 
 #include <math.h>
 
 struct dict
@@ -9,21 +8,50 @@ struct dict
     char name[100];
 };
 
-int max(struct dict *dic, int size)
+double atof_make(char *str)
+{
+    double val = 0;
+    int i = 0;
+    int sign = 1;
+    while (str[i] == ' ')
+        i++;
+    if (str[i] == '-')
+    {
+        sign = -1;
+        i++;
+    }
+    while (str[i] >= '0' && str[i] <= '9')
+    {
+        val = val * 10 + (str[i] - '0');
+        i++;
+    }
+    if (str[i] == '.')
+        i++;
+    double power = 1;
+    while (str[i] >= '0' && str[i] <= '9')
+    {
+        val = val * 10 + (str[i] - '0');
+        power *= 10;
+        i++;
+    }
+    return sign * val / power;
+}
+
+int max_m(struct dict *dic, int size)
 {
     int index = 0;
     for (int i = 0; i < size; i++)
-        if (atof(dic[index].score) < atof(dic[i].score))
+        if (atof_make(dic[index].score) < atof_make(dic[i].score))
             index = i;
     printf("%s ", dic[index].name);
     return index;
 }
 
-int min(struct dict *dic, int size)
+int min_m(struct dict *dic, int size)
 {
     int index = 0;
     for (int i = 0; i < size; i++)
-        if (atof(dic[index].score) > atof(dic[i].score))
+        if (atof_make(dic[index].score) > atof_make(dic[i].score))
             index = i;
     printf("%s", dic[index].name);
     return index;
@@ -33,7 +61,7 @@ double mean(struct dict *dic, int size)
 {
     double sum = 0;
     for (int i = 0; i < size; i++)
-        sum += atof(dic[i].score);
+        sum += atof_make(dic[i].score);
     return sum / size;
 }
 
@@ -42,7 +70,7 @@ double sd(struct dict *dic, int size)
     double sum = 0;
     double m = mean(dic, size);
     for (int i = 0; i < size; i++)
-        sum += (atof(dic[i].score) - m) * (atof(dic[i].score) - m);
+        sum += (atof_make(dic[i].score) - m) * (atof_make(dic[i].score) - m);
     sum /= (size);
     sum = sqrt(sum);
     printf("%0.2lf ", m);
@@ -63,7 +91,7 @@ int main()
     }
     mean(dic, size);
     sd(dic, size);
-    max(dic, size);
-    min(dic, size);
+    max_m(dic, size);
+    min_m(dic, size);
     return 0;
 }
