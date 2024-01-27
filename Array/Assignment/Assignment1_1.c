@@ -1,3 +1,4 @@
+// Punnawat Mungakalarungsi 66070503436
 #include <stdio.h>
 
 int min(int *num, int amount)
