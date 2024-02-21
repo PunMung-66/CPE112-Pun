@@ -8,23 +8,27 @@ typedef struct {
 } Queue;
 
 void initQueue(Queue *q) {
+    // O(1)
     q->front = -1;
     q->rear = -1;
 }
 
 int isFull(Queue *q) {
+    // O(1)
     if ((q->front == 0 && q->rear == q->size - 1) || (q->front == q->rear + 1))
         return 1;
     return 0;
 }
 
 int isEmpty(Queue *q) {
+    // O(1)
     if (q->front == -1)
         return 1;
     return 0;
 }
 
 void enqueue(Queue *q, int value) {
+    // O(1)
     if (isFull(q)) {
         printf("Queue is full!!\n");
         return;
@@ -35,8 +39,8 @@ void enqueue(Queue *q, int value) {
     q->items[q->rear] = value;
 }
 
-// Function to remove an element from the circular queue
 int dequeue(Queue *q) {
+    // O(1)
     int value;
     if (isEmpty(q)) {
         printf("Queue is empty!!\n");
@@ -53,6 +57,7 @@ int dequeue(Queue *q) {
 }
 
 void show(Queue q) {
+    // O(n)
     if (isEmpty(&q)) {
         printf("Queue is empty!!\n");
         return;
