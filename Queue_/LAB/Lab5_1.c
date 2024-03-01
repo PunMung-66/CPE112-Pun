@@ -17,6 +17,7 @@ typedef struct
     node *rear;
 } queue;
 
+// bigo O(1)
 void delete_C(queue *q)
 {
     node *ptr;
@@ -33,6 +34,7 @@ void delete_C(queue *q)
     return;
 }
 
+// bigo O(1)
 void insert_C(queue *q, char *song, char *artist, int time)
 {
     node *ptr;
@@ -54,6 +56,7 @@ void insert_C(queue *q, char *song, char *artist, int time)
     return;
 }
 
+// bigo O(n)
 void print_sum(queue q)
 {
     int sum = 0;

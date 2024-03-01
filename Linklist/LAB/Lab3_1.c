@@ -8,20 +8,34 @@ typedef struct node
     struct node *next;
 } node;
 
-void insertEnd(node *head, int val)
+void insertEnd(node **start, int val)
 {
-    node *current = head;
-    while (current->next != NULL)
-        current = current->next;
-    current->next = (node *)malloc(sizeof(node));
-    current->next->data = val;
-    current->next->next = NULL;
+    node *newNode, *ptr;
+    newNode = (node *)malloc(sizeof(node));
+    newNode->data = val;
+    newNode->next = NULL;
+    if (*start == NULL)
+    {
+        *start = newNode;
+        return;
+    }
+    ptr = *start;
+    while (ptr->next != NULL)
+        ptr = ptr->next;
+    ptr->next = newNode;
 }
 
 void insertBegin(node **start, int val)
 {
     node *newNode;
     newNode = (node *)malloc(sizeof(node));
+    if (*start == NULL)
+    {
+        newNode->data = val;
+        newNode->next = NULL;
+        *start = newNode;
+        return;
+    }
     newNode->data = val;
     newNode->next = *start;
     *start = newNode;
@@ -40,7 +54,7 @@ void traverse(node *start)
 int main()
 {
     int amount, value, option;
-    node *head;
+    node *head = NULL;
     scanf("%d", &amount);
     if (amount <= 0)
     {
@@ -48,28 +62,15 @@ int main()
         return 0;
     }
     scanf("%d", &option);
-    if (option == 1)
+    if (option == 1 || option == 2)
     {
-        scanf("%d", &value);
-        head = (node *)malloc(sizeof(node));
-        head->data = value;
-        head->next = NULL;
-        for (int i = 1; i < amount; i++)
+        for (int i = 0; i < amount; i++)
         {
             scanf("%d", &value);
-            insertBegin(&head, value);
-        }
-    } 
-    else if (option == 2)
-    {
-        scanf("%d", &value);
-        head = (node *)malloc(sizeof(node));
-        head->data = value;
-        head->next = NULL;
-        for (int i = 1; i < amount; i++)
-        {
-            scanf("%d", &value);
-            insertEnd(head, value);
+            if (option == 1)
+                insertBegin(&head, value);
+            else
+                insertEnd(&head, value);
         }
     }
     else
