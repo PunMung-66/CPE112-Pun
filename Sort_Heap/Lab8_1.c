@@ -46,9 +46,9 @@ void insert(heap *root, int key)
         return;
     }
     root->arr[root->size] = key;
-    int i = root->size;
+    int i = root->size; // i is the index of the last element
     root->size++;
-    while (i != 0 && root->arr[i] < root->arr[(i - 1) / 2]) 
+    while (i != 0 && root->arr[i] < root->arr[(i - 1) / 2]) // Heapify is in this line
     {
         swap(&root->arr[i], &root->arr[(i - 1) / 2]);
         i = (i - 1) / 2;
@@ -61,11 +61,11 @@ void delete(heap *root, int key) {
         if (root->arr[i] == key)
             break;
     }
-    if (i == root->size)
+    if (i == root->size)// Not found
         return;
-    root->arr[i] = root->arr[root->size - 1];
+    root->arr[i] = root->arr[root->size - 1]; // Swap target deleted node with last element
     root->size--;
-    for (int i = root->size / 2 - 1; i >= 0; i--)
+    for (int i = root->size; i >= 0; i--)
         heapify(root, i);
 }
 

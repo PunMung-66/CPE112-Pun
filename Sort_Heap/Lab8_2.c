@@ -10,6 +10,7 @@ struct Heap {
 
 typedef struct Heap heap;
 
+// O(1)
 heap *createHeap(int capacity) {
     heap *h = (heap *)malloc(sizeof(heap));
     h->size = 0;
@@ -17,7 +18,9 @@ heap *createHeap(int capacity) {
     return h;
 }
 
+// O(log n)
 void heapify(heap *root, int i) {
+    // O(1)
     int largest = i;
     int l = 2 * i + 1;
     int r = 2 * i + 2;
@@ -33,6 +36,7 @@ void heapify(heap *root, int i) {
     }
 }
 
+// O(log n)
 void insert(heap *root, int key) {
     if (root->size == 0) {
         root->arr[0] = key;
@@ -42,6 +46,7 @@ void insert(heap *root, int key) {
     root->arr[root->size] = key;
     int i = root->size;
     root->size++;
+    // Heapify is in this line
     while (i != 0 && root->arr[i] > root->arr[(i - 1) / 2]) {
         int temp = root->arr[i];
         root->arr[i] = root->arr[(i - 1) / 2];
@@ -50,11 +55,12 @@ void insert(heap *root, int key) {
     }
 }
 
+// O(n)
 void delete(heap *root, int key) {
     int i;
     for (i = 0; i < root->size; i++) {
         if (root->arr[i] == key)
-            break;
+            break;  
     }
     if (i == root->size)
         return;

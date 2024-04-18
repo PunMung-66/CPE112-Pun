@@ -2,6 +2,7 @@
     "files.associations": {
         "*.c": "c",
         "*.py": "python",
-        "type_traits": "c"
+        "type_traits": "c",
+        "iostream": "cpp"
     }
 }
